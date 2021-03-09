@@ -2,24 +2,32 @@
   <form @click.prevent="handleSubmit">
       <input type="email" placeholder="Email" required v-model="email">
       <input type="password" placeholder="Password" required v-model="password">
+      <div class="error">{{ error }}</div>
       <button>Login</button>
   </form>
 </template>
 
 <script>
 import { ref } from '@vue/reactivity'
+import useLogin from '../composables/useLogin'
 
 export default {
 
-    setup(){
+    setup(props, context){
+
+        const { error, login } = useLogin()
+
         const email = ref('');
         const password = ref('');
 
-        const handleSubmit = () => {
-            // Code to be added
+        const handleSubmit = async () => {
+            await login(email.value, password.value)
+            if(!error.value){
+                context.emit('login')
+            }
         }
 
-        return { email, password, handleSubmit }
+        return { email, password, handleSubmit, error }
     } 
 }
 </script>

@@ -1,10 +1,10 @@
 import { ref } from "@vue/reactivity"
-import { fAuth } from "../src/firebase/config"
+import { fAuth } from "../firebase/config"
 
 const error = ref(null)
 
 const signup = async (email, password, displayName) => {
-
+    error.value = null
     try{
         const res = await fAuth.createUserWithEmailAndPassword(email, password)
         if(!res){

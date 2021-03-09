@@ -3,12 +3,12 @@
       <h1>Welcome To Live Chat</h1>
       <div v-if="showLogin">
           <h2>Login</h2>
-          <Login />
+          <Login @login="enterChatroom" />
           <p>Not registered ?<span @click="showLogin = false"> Sign up</span></p>
       </div>
       <div v-else>
           <h2>Register</h2>
-          <Signup />
+          <Signup @signedUp="enterChatroom" />
           <p>Already registered ?<span @click="showLogin = true"> Login</span></p>
       </div>
   </div>
@@ -18,14 +18,19 @@
 import { ref } from '@vue/reactivity'
 import Login from '../components/Login'
 import Signup from '../components/Signup'
+import { useRouter } from 'vue-router'
 
 export default {
     components: { Login, Signup },
 
     setup(){
         const showLogin = ref(true)
+        const router = useRouter()
+        const enterChatroom = () => {
+            router.push({name: 'Chatroom'})
+        }
 
-        return { showLogin }
+        return { showLogin, enterChatroom }
     }
 
 }
