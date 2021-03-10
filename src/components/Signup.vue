@@ -1,5 +1,5 @@
 <template>
-  <form @click.prevent="handleSubmit">
+  <form @submit.prevent="handleSubmit">
       <input type="text" placeholder="Display Name" required v-model="displayName">
       <input type="email" placeholder="Email" required v-model="email">
       <input type="password" placeholder="Password" required v-model="password">

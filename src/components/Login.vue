@@ -1,5 +1,5 @@
 <template>
-  <form @click.prevent="handleSubmit">
+  <form @submit.prevent="handleSubmit">
       <input type="email" placeholder="Email" required v-model="email">
       <input type="password" placeholder="Password" required v-model="password">
       <div class="error">{{ error }}</div>
@@ -15,10 +15,10 @@ export default {
 
     setup(props, context){
 
-        const { error, login } = useLogin()
-
         const email = ref('');
         const password = ref('');
+        
+        const { error, login } = useLogin()
 
         const handleSubmit = async () => {
             await login(email.value, password.value)
