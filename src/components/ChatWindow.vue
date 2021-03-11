@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="chat-window">
             <div v-if="error">{{ error }}</div>
-            <div viif="documents" class="messages">
+            <div viif="documents" class="messages" ref="messages">
                 <div v-for="doc in formattedDocuments" :key="doc.id" class="single">
                     <span class="created-at">{{ doc.createdAt }}</span>
                     <span class="name">{{ doc.name }}</span>
@@ -16,7 +16,7 @@
 <script>
 import getCollection from '../composables/getCollection'
 import { formatDistanceToNow } from 'date-fns'
-import { computed } from '@vue/runtime-core'
+import { computed, onUpdated, ref } from '@vue/runtime-core'
 
 export default {
     setup(){
@@ -30,8 +30,14 @@ export default {
                 })
             }
         })
+        // auto-scroll to the bottom of messages to always show the most recent message
+        const messages = ref(null)
+        // Use Vue lifecycle hook to trigger everytime there is a new message
+        onUpdated(() => {
+            messages.value.scrollTop = messages.value.scrollHeight
+        })
 
-        return { documents, error, formattedDocuments }
+        return { documents, error, formattedDocuments, messages }
     }
 }
 </script>
@@ -69,6 +75,7 @@ export default {
   .messages {
     max-height: 400px;
     box-sizing: border-box;
+    overflow: auto;
   }
   .single{
       padding: 10px 0;
