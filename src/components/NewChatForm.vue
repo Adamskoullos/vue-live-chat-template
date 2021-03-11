@@ -28,7 +28,6 @@ export default {
                 createdAt: timeStamp()
             }
             await addDoc(chat)
-            console.log(chat)
             if(!error.value){
                 message.value = ''
             }
@@ -50,7 +49,7 @@ form {
     padding: 10px;
     box-sizing: border-box;
     border: 0;
-    border-radius: 20px;
+    border-radius: 10px;
     font-family: inherit;
     outline: none;
   }
