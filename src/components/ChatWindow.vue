@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="chat-window">
             <div v-if="error">{{ error }}</div>
-            <div viif="documents" class="messages" ref="messages">
+            <div v-if="documents" class="messages" ref="messages">
                 <div v-for="doc in formattedDocuments" :key="doc.id" class="single">
                     <span class="created-at">{{ doc.createdAt }}</span>
                     <span class="name">{{ doc.name }}</span>
